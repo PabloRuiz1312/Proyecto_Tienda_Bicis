@@ -75,7 +75,7 @@ public class PurchaseRecord {
 	@Override
 	public String toString()
 	{
-		return "purchase "+purchaseID+" client "+clientID+" buy a bike "+bikeID+", in "+purchaseDate;
+		return "purchase "+this.purchaseID+" client "+this.clientID+" buy a bike "+this.bikeID+", in "+this.purchaseDate;
 	}
 	
 	
