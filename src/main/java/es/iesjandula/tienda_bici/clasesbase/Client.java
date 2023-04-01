@@ -4,7 +4,7 @@ package es.iesjandula.tienda_bici.clasesbase;
  * @author Pablo Ruiz Canovas
  * This class takes care of save the information of the client 
  */
-public class Cliente {
+public class Client {
 	//This attribute register the identifier of the client 
 	private int id;
 	//This attribute register the name of the client
@@ -22,7 +22,7 @@ public class Cliente {
 	 * @param gender gender of the client
 	 * If one of this attributes (except ID) would be null the method fixAttributes set a default value
 	 */
-	public Cliente (int id,String name,int age,String gender)
+	public Client (int id,String name,int age,String gender)
 	{
 		this.id = id;
 		this.name = name;
@@ -58,6 +58,7 @@ public class Cliente {
 	public void setName(String name)
 	{
 		this.name = name;
+		this.fixAttributes();
 	}
 	/**
 	 * 
@@ -76,6 +77,7 @@ public class Cliente {
 	public void setAge(int age)
 	{
 		this.age = age;
+		this.fixAttributes();
 	}
 	/**
 	 * 
@@ -94,6 +96,7 @@ public class Cliente {
 	public void setGender(String gender)
 	{
 		this.gender = gender;
+		this.fixAttributes();
 	}
 	/**
 	 * This method set to default the attributes value if the user set his values null
