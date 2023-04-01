@@ -34,8 +34,8 @@ public class Client {
 	//Getters and Setters
 	/**
 	 * 
-	 * @return
-	 * This getter return the value of the identifier of the client
+	 * @return return the value of the identifier of the client
+	 * 
 	 */
 	public int getID()
 	{
@@ -43,8 +43,8 @@ public class Client {
 	}
 	/**
 	 * 
-	 * @return
-	 * This getter return the value of the name of the client
+	 * @return return the value of the name of the client
+	 * 
 	 */
 	public String getName()
 	{
@@ -52,8 +52,8 @@ public class Client {
 	}
 	/**
 	 * 
-	 * @param name
-	 * This setter allows change the value of the name
+	 * @param name allows change the old value of the name
+	 *  
 	 */
 	public void setName(String name)
 	{
@@ -62,8 +62,8 @@ public class Client {
 	}
 	/**
 	 * 
-	 * @return
-	 * This getter return the value of the age of the client
+	 * @return return the value of the age of the client
+	 * 
 	 */
 	public int getAge()
 	{
@@ -71,8 +71,8 @@ public class Client {
 	}
 	/**
 	 * 
-	 * @param age
-	 * This setter allows change the value of the age of the client
+	 * @param age allows change the old value of the age of the client
+	 * 
 	 */
 	public void setAge(int age)
 	{
@@ -81,8 +81,8 @@ public class Client {
 	}
 	/**
 	 * 
-	 * @return
-	 * This getter return the value of the gender of the client
+	 * @return return the value of the gender of the client
+	 * 
 	 */
 	public String getGender()
 	{
@@ -90,8 +90,8 @@ public class Client {
 	}
 	/**
 	 * 
-	 * @param gender
-	 * This setter allows change the value of the gender of the client
+	 * @param gender allows change the old value of the gender of the client
+	 *  
 	 */
 	public void setGender(String gender)
 	{
