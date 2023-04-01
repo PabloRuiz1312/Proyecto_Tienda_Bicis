@@ -17,11 +17,11 @@ public class Bike {
 	private char gender;
 	/**
 	 * Constructor
-	 * @param id
-	 * @param mark
-	 * @param numWheel
-	 * @param bikeType
-	 * @param gender
+	 * @param id of the bike (the id is choosen by the system)
+	 * @param mark of the bike
+	 * @param numWheel define the size of the wheel
+	 * @param bikeType define the type of a bike
+	 * @param gender define if the bike its for a men or woman 
 	 * If one of this attributes (except ID) would be null the method fixAttributes set a default value
 	 */
 	public Bike (int id,String mark,int numWheel,String bikeType,char gender)
@@ -37,8 +37,8 @@ public class Bike {
 	//Getter and Setters
 	/**
 	 * 
-	 * @return
-	 * This getter return the value of the identifier of the bike
+	 * @return return the value of the identifier of the bike
+	 * 
 	 */
 	public int getId()
 	{
@@ -46,8 +46,8 @@ public class Bike {
 	}
 	/**
 	 * 
-	 * @return
-	 * This getter return the value of the mark of the bike
+	 * @return return the value of the mark of the bike
+	 * 
 	 */
 	public String getMark()
 	{
@@ -55,8 +55,8 @@ public class Bike {
 	}
 	/**
 	 * 
-	 * @param mark
-	 * This setter allows change the value of the mark of the bike
+	 * @param mark allows change the value of the old mark of the bike
+	 * 
 	 */
 	public void setMark(String mark)
 	{
@@ -65,8 +65,8 @@ public class Bike {
 	}
 	/**
 	 * 
-	 * @return
-	 * This getter return the value of the number of the wheel of the bike
+	 * @return return the value of the number of the wheel of the bike
+	 * 
 	 */
 	public int getNumWheel()
 	{
@@ -74,8 +74,8 @@ public class Bike {
 	}
 	/**
 	 * 
-	 * @param numbWheel
-	 * This setter allows change the value of number of the wheel of the bike
+	 * @param numbWheel allows change the old value of number of the wheel of the bike
+	 * 
 	 */
 	public void setNumbWheel(int numWheel)
 	{
@@ -84,8 +84,8 @@ public class Bike {
 	}
 	/**
 	 * 
-	 * @return
-	 * This getter return the value of the bike type
+	 * @return return the value of the bike type
+	 * 
 	 */
 	public String getBikeType()
 	{
@@ -93,8 +93,8 @@ public class Bike {
 	}
 	/**
 	 * 
-	 * @param bikeType
-	 * This setter allows change the value of the bike type
+	 * @param bikeType allows change the old value of the bike type
+	 * 
 	 */
 	public void setBikeType(String bikeType)
 	{
@@ -103,8 +103,8 @@ public class Bike {
 	}
 	/**
 	 * 
-	 * @return
-	 * This getter return the value of the gender of the bike
+	 * @return return the value of the gender of the bike
+	 *  
 	 */
 	public char getGender()
 	{
@@ -112,8 +112,8 @@ public class Bike {
 	}
 	/**
 	 * 
-	 * @param gender
-	 * This setter allows change the value of the gender of the bike
+	 * @param gender change the old value of the gender of the bike
+	 * 
 	 */
 	public void setGender(char gender)
 	{
