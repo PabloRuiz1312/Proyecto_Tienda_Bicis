@@ -14,7 +14,7 @@ public class Bike {
 	//This attribute register the type of the bike
 	private String bikeType;
 	//This attribute register the gender of the bike
-	private char gender;
+	private String gender;
 	/**
 	 * Constructor
 	 * @param id of the bike (the id is choosen by the system)
@@ -24,7 +24,7 @@ public class Bike {
 	 * @param gender define if the bike its for a men or woman 
 	 * If one of this attributes (except ID) would be null the method fixAttributes set a default value
 	 */
-	public Bike (int id,String mark,int numWheel,String bikeType,char gender)
+	public Bike (int id,String mark,int numWheel,String bikeType,String gender)
 	{
 		this.id = id;
 		this.mark = mark;
@@ -106,7 +106,7 @@ public class Bike {
 	 * @return return the value of the gender of the bike
 	 *  
 	 */
-	public char getGender()
+	public String getGender()
 	{
 		return this.gender;
 	}
@@ -115,7 +115,7 @@ public class Bike {
 	 * @param gender change the old value of the gender of the bike
 	 * 
 	 */
-	public void setGender(char gender)
+	public void setGender(String gender)
 	{
 		this.gender = gender;
 		this.fixAttributes();
@@ -141,9 +141,9 @@ public class Bike {
 		{
 			this.bikeType = "Rigida";
 		}
-		if(this.gender!='H' || this.gender!='M' || this.gender!='T')
+		if(!this.gender.equalsIgnoreCase("H") || !this.gender.equalsIgnoreCase("M") || !this.gender.equalsIgnoreCase("T"))
 		{
-			this.gender = 'T';
+			this.gender = "T";
 		}
 	}
 	
