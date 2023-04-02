@@ -29,7 +29,7 @@ public class MenuPurchase {
 		{
 			this.syntax = "SELECT ID_Registro FROM registro_compra";
 			this.searchID = connection.createStatement();
-			this.resultSet = this.statement.executeQuery();
+			this.resultSet = this.searchID.executeQuery(this.syntax);
 			while(this.resultSet.next())
 			{
 				purchaseID = this.resultSet.getInt("ID_Registro");
@@ -89,7 +89,12 @@ public class MenuPurchase {
 			System.out.println("Error updating the date");
 		}
 	}
-	
+	/**
+	 * This method search a purchase record by his id
+	 * @param connection
+	 * @param purchaseID
+	 * @return
+	 */
 	public PurchaseRecord delete(Connection connection, int purchaseID)
 	{
 		PurchaseRecord purchaseRecord = null;
