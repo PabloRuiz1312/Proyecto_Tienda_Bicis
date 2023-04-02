@@ -18,7 +18,7 @@ ID INT NOT NULL,
 Marca VARCHAR(60),
 Num_Rueda INT NOT NULL,
 Tipo_Bici VARCHAR(30),
-Genero CHAR(1),
+Genero VARCHAR(1),
 PRIMARY KEY(ID)
 );
 
