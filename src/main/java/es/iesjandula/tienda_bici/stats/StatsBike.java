@@ -1,5 +1,4 @@
 package es.iesjandula.tienda_bici.stats;
-import es.iesjandula.tienda_bici.clasesbase.Bike;
 import java.sql.*;
 /**
  * 
@@ -7,8 +6,6 @@ import java.sql.*;
  * This class show all bikes
  */
 public class StatsBike {
-	//Statement to realize (prepared to insert,update or delete syntax)
-	private PreparedStatement statement = null;
 	//Statement to search the identifier of the client
 	private Statement simpleStatement = null;
 	//Result of the statement
