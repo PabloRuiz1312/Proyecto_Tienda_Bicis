@@ -1,4 +1,4 @@
-package es.iesjandula.tienda_bicis.menu;
+package es.iesjandula.tienda_bici.menu;
 import java.sql.*;
 import es.iesjandula.tienda_bici.clasesbase.Bike;
 /**
