@@ -63,7 +63,8 @@ public class MenuBike {
 		{
 			this.syntax = "SELECT * FROM Bicicleta WHERE ID = ?";
 			this.statement = connection.prepareStatement(this.syntax);
-			this.resultSet = this.searchID.executeQuery(this.syntax);
+			this.statement.setInt(1, bikeID);
+			this.resultSet = this.statement.executeQuery();
 			while(this.resultSet.next())
 			{
 				System.out.println("Old bike");
