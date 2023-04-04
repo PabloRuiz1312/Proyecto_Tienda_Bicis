@@ -60,7 +60,7 @@ public class MenuBike implements CheckIdBike {
 	 */
 	public void updateMark(Connection connection,int bikeID,String newMark)
 	{
-		if(check(connection, bikeID))
+		if(checkBike(connection, bikeID))
 		{
 			try
 			{
@@ -109,7 +109,7 @@ public class MenuBike implements CheckIdBike {
 	 */
 	public void updateNumWheel(Connection connection,int bikeID,int numWheel)
 	{
-		if(check(connection, bikeID))
+		if(checkBike(connection, bikeID))
 		{
 			try
 			{
@@ -158,7 +158,7 @@ public class MenuBike implements CheckIdBike {
 	 */
 	public void updateBikeType(Connection connection,int bikeID,String newTypeBike)
 	{
-		if(check(connection, bikeID))
+		if(checkBike(connection, bikeID))
 		{
 			try
 			{
@@ -207,7 +207,7 @@ public class MenuBike implements CheckIdBike {
 	 */
 	public void updateGender(Connection connection,int bikeID,String newGender)
 	{
-		if(check(connection, bikeID))
+		if(checkBike(connection, bikeID))
 		{
 			try
 			{
@@ -255,7 +255,7 @@ public class MenuBike implements CheckIdBike {
 	 */
 	public void delete(Connection connection, int bikeID)
 	{
-		if(check(connection, bikeID))
+		if(checkBike(connection, bikeID))
 		{
 			try
 			{
@@ -296,7 +296,7 @@ public class MenuBike implements CheckIdBike {
 		Bike bike = null;
 		String mark = null,bikeType = null,gender = null;
 		int numWheel = 0;
-		if(check(connection, bikeID))
+		if(checkBike(connection, bikeID))
 		{	
 			try
 			{

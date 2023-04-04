@@ -13,7 +13,7 @@ public interface CheckIdBike {
 	 * @param bikeID
 	 * @return
 	 */
-	default boolean check(Connection connection, int bikeID)
+	default boolean checkBike(Connection connection, int bikeID)
 	{
 		boolean exist = false;
 		try
