@@ -57,7 +57,7 @@ public class MenuClient implements CheckIdClient {
 	 */
 	public void updateName(Connection connection,int clientID ,String newName)
 	{
-		if(check(connection, clientID))
+		if(checkClient(connection, clientID))
 		{
 			try
 			{
@@ -104,7 +104,7 @@ public class MenuClient implements CheckIdClient {
 	 */
 	public void updateAge(Connection connection,int clientID,int newAge)
 	{
-		if(check(connection, clientID))
+		if(checkClient(connection, clientID))
 		{
 			try
 			{
@@ -151,7 +151,7 @@ public class MenuClient implements CheckIdClient {
 	 */
 	public void updateGender(Connection connection,int clientID,String newGender)
 	{
-		if(check(connection, clientID))
+		if(checkClient(connection, clientID))
 		{
 			try
 			{
@@ -197,7 +197,7 @@ public class MenuClient implements CheckIdClient {
 	 */
 	public void delete(Connection connection,int clientID) 
 	{
-		if(check(connection, clientID))
+		if(checkClient(connection, clientID))
 		{
 			try
 			{
@@ -237,7 +237,7 @@ public class MenuClient implements CheckIdClient {
 		Client client = null;
 		String name = null,gender = null;
 		int age = 0;
-		if(check(connection, clientID))
+		if(checkClient(connection, clientID))
 		{
 			try
 			{

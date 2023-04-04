@@ -13,7 +13,7 @@ public interface CheckIdClient {
 	 * @param clientID that the user introduced that will be checked
 	 * @return the boolean of confirmation
 	 */
-	default boolean check(Connection connection, int clientID)
+	default boolean checkClient(Connection connection, int clientID)
 	{
 		boolean exist = false;
 		try
