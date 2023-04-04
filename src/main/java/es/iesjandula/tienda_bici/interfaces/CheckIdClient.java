@@ -1,6 +1,5 @@
 package es.iesjandula.tienda_bici.interfaces;
 import java.sql.*;
-import es.iesjandula.tienda_bici.clasesbase.Client;
 import java.util.Arrays;
 /**
  * 
