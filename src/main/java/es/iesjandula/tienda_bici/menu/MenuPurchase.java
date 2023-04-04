@@ -1,12 +1,13 @@
 package es.iesjandula.tienda_bici.menu;
 import java.sql.*;
 import es.iesjandula.tienda_bici.clasesbase.PurchaseRecord;
+import es.iesjandula.tienda_bici.interfaces.*;
 /**
  * This class create, update,delete and search a purchase record
  * @author Pablo Elias Ruiz Canovas
  *
  */
-public class MenuPurchase {
+public class MenuPurchase implements CheckIdClient,CheckIdBike {
 	//Statement to realize (prepared to insert,update or delete syntax)
 	private PreparedStatement statement = null;
 	//Statement to search the identifier of the client
@@ -25,27 +26,34 @@ public class MenuPurchase {
 	public void create(Connection connection,int clientID,int bikeID,String date)
 	{
 		int purchaseID = 0;
-		try
+		if(checkClient(connection, clientID) && checkBike(connection, bikeID))
 		{
-			this.syntax = "SELECT ID_Registro FROM registro_compra";
-			this.searchID = connection.createStatement();
-			this.resultSet = this.searchID.executeQuery(this.syntax);
-			while(this.resultSet.next())
+			try
 			{
-				purchaseID = this.resultSet.getInt("ID_Registro");
+				this.syntax = "SELECT ID_Registro FROM registro_compra";
+				this.searchID = connection.createStatement();
+				this.resultSet = this.searchID.executeQuery(this.syntax);
+				while(this.resultSet.next())
+				{
+					purchaseID = this.resultSet.getInt("ID_Registro");
+				}
+				purchaseID++;
+				this.syntax = "INSERT INTO registro_compra (ID_Cliente,ID_Bicicleta,ID_Registro,Fecha_Compra) VALUES (?,?,?,?)";
+				this.statement = connection.prepareStatement(this.syntax);
+				this.statement.setInt(1, clientID);
+				this.statement.setInt(2, bikeID);
+				this.statement.setInt(3, purchaseID);
+				this.statement.setString(4, date);
+				this.statement.executeUpdate();
+				System.out.println("Purchase record create");
+			}catch(SQLException e)
+			{
+				System.out.println("Error creating a purchase record");
 			}
-			purchaseID++;
-			this.syntax = "INSERT INTO registro_compra (ID_Cliente,ID_Bicicleta,ID_Registro,Fecha_Compra) VALUES (?,?,?,?)";
-			this.statement = connection.prepareStatement(this.syntax);
-			this.statement.setInt(1, clientID);
-			this.statement.setInt(2, bikeID);
-			this.statement.setInt(3, purchaseID);
-			this.statement.setString(4, date);
-			this.statement.executeUpdate();
-			System.out.println("Purchase record create");
-		}catch(SQLException e)
+		}
+		else
 		{
-			System.out.println("Error creating a purchase record");
+			System.out.println("The client id "+clientID+" and bike id "+bikeID+" doesnt exist or dont match");
 		}
 	}
 	/**
