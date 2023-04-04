@@ -109,6 +109,7 @@ public class StatsPurchase {
 	 */
 	public void showWorstClient(Connection connection)
 	{
+		boolean show = false;
 		try
 		{
 		int registerID [] = new int [0];
@@ -131,17 +132,29 @@ public class StatsPurchase {
 		}
 		if(clientID.length!=registerID.length)
 		{
-			for(int i = registerID.length;i<clientID.length;i++)
+			for(int i = 0;i<clientID.length;i++)
 			{
-				this.syntax = "SELECT * FROM Cliente WHERE ID = ?";
-				this.statement = connection.prepareStatement(this.syntax);
-				this.statement.setInt(1, clientID[i]);
-				this.resultSet = statement.executeQuery();
-				while(this.resultSet.next())
+				for(int j = 0;j<registerID.length;j++)
 				{
-					System.out.println(this.resultSet.getString("ID")+"\t"+this.resultSet.getString("Nombre")
-					+"\t"+this.resultSet.getString("Edad")+"\t"+this.resultSet.getString("Genero"));
+					if(clientID[i]==registerID[j])
+					{
+						show = true;
+						break;
+					}
 				}
+				if(show == false)
+				{
+					this.syntax = "SELECT * FROM Cliente WHERE ID = ?";
+					this.statement = connection.prepareStatement(this.syntax);
+					this.statement.setInt(1, clientID[i]);
+					this.resultSet = statement.executeQuery();
+					while(this.resultSet.next())
+					{
+						System.out.println(this.resultSet.getString("ID")+"\t"+this.resultSet.getString("Nombre")
+						+"\t"+this.resultSet.getString("Edad")+"\t"+this.resultSet.getString("Genero"));
+					}
+				}
+				show = false;
 			}
 		}else
 		{
