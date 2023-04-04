@@ -86,7 +86,7 @@ public class StatsBike {
 	{
 		try
 		{
-			this.syntax = "SELECT * FROM Bicicleta WHERE Genero = 'O'";
+			this.syntax = "SELECT * FROM Bicicleta WHERE Genero = 'T'";
 			this.simpleStatement = connection.createStatement();
 			this.resultSet = this.simpleStatement.executeQuery(this.syntax);
 			while(resultSet.next())
