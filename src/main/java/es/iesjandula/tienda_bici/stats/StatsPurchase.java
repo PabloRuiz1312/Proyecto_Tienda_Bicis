@@ -91,6 +91,7 @@ public class StatsPurchase {
 			this.syntax = "SELECT * FROM Cliente WHERE ID = ?";
 			this.statement = connection.prepareStatement(this.syntax);
 			this.statement.setInt(1, clientID);
+			this.resultSet = statement.executeQuery();
 			while(this.resultSet.next())
 			{
 				System.out.println("Th eclient that buy more bikes is:");
