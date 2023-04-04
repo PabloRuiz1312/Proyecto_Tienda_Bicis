@@ -45,6 +45,8 @@ public class Launcher {
 		//Attributes of main
 		String option = null;
 		boolean endLoop = false,endMenu = true;
+		Client client = null;
+		Bike bike = null;
 		
 		try
 		{
@@ -85,6 +87,128 @@ public class Launcher {
 									+ "2.-Delete a client\n"
 									+ "3.-Modify a client\n"
 									+ "4.-Search a client");
+							option = scanner.next();
+							switch(option)
+							{
+							case "1":
+								System.out.println("You choose add a client, you need specify his attributes");
+								System.out.println("First choose a name");
+								name = new Scanner (System.in).nextLine();
+								System.out.println("Choose a age");
+								try
+								{
+									age = new Scanner (System.in).nextInt();
+								}catch(InputMismatchException e)
+								{
+									System.out.println("Error choosing age");
+									age = -1;
+								}
+								System.out.println("Choose a gender (Hombre,Mujer,Otro)");
+								clientGender = scanner.next();
+								client = new Client(1,name,age,clientGender);
+								menuC.create(connection, client.getName(), client.getAge(), client.getGender());
+								break;
+							case "2":
+								System.out.println("You choose delete a client, select the id of the client to delete");
+								statsC.showClients(connection);
+								try
+								{
+									clientID = scanner.nextInt();
+								}catch(InputMismatchException e)
+								{
+									System.out.println("Error deleting a client");
+									clientID = -1;
+								}
+								if(clientID!=-1)
+								{
+									menuC.delete(connection, clientID);
+								}
+								break;
+							case "3":
+								System.out.println("You choose modify a client, select the id of the client to modify");
+								statsC.showClients(connection);
+								try
+								{
+									clientID = scanner.nextInt();
+								}catch(InputMismatchException e)
+								{
+									System.out.println("Error selecting id");
+									clientID = -1;
+								}
+								if(clientID!=-1 || clientID>0)
+								{
+									client = menuC.read(connection, clientID);
+									if(client!=null)
+									{
+										System.out.println("Ok "+client+" selected now select the attribute to modify:\n"
+												+ "1.-Name\n"
+												+ "2.-Age\n"
+												+ "3.-Gender");
+										option = scanner.next();
+										switch(option)
+										{
+										case "1":
+											System.out.println("Select the new name");
+											name = new Scanner (System.in).nextLine();
+											menuC.updateName(connection, clientID, name);
+											break;
+										case "2":
+											System.out.println("Select the new age");
+											try
+											{
+												age = scanner.nextInt();
+											}catch(InputMismatchException e)
+											{
+												System.out.println("Error selecting age");
+												age = -1;
+											}
+											if(age>0 || age!=-1)
+											{
+												menuC.updateAge(connection, clientID, age);
+											}
+											else
+											{
+												System.out.println("Negative age introduce");
+											}
+											break;
+										case "3":
+											System.out.println("Select the new gender (Hombre,Mujer,Otro)");
+											clientGender = scanner.next();
+											if(clientGender.equalsIgnoreCase("Hombre") || clientGender.equalsIgnoreCase("Mujer") || clientGender.equalsIgnoreCase("Otro"))
+											{
+												menuC.updateGender(connection, clientID, clientGender);
+											}
+											break;
+										default:
+											System.out.println("Error selecting option");
+										}
+									
+									}
+									else
+									{
+										System.out.println("Client with id "+clientID+" doesnt exist");
+									}
+								}
+								break;
+							case "4":
+								System.out.println("You choose search a client, select his id");
+								try
+								{
+									clientID = scanner.nextInt();
+								}catch(InputMismatchException e)
+								{
+									System.out.println("Error searching the client");
+									clientID = -1;
+								}
+								if(clientID!=-1)
+								{
+									client = menuC.read(connection, clientID);
+									System.out.println(client);
+								}
+								break;
+							default:
+								System.out.println("Error choosing option");
+							}
 							break;
 						case "2":
 							System.out.println("You choose menu of bikes, choose one option:\n"
@@ -92,8 +216,137 @@ public class Launcher {
 									+ "2.-Delete a bike\n"
 									+ "3.-Modify a bike\n"
 									+ "4.-Search a bike");
+							option = scanner.next();
+							switch(option)
+							{
+							case "1":
+								System.out.println("You choose add a bike, you need specify his attributes");
+								System.out.println("Select his mark");
+								mark = new Scanner(System.in).nextLine();
+								System.out.println("Select his number wheel");
+								try
+								{
+									numWheel = new Scanner (System.in).nextInt();
+								}catch(InputMismatchException e)
+								{
+									System.out.println("Error slecting number of wheel ");
+									numWheel = -1;
+								}
+								System.out.println("Select the type of bike");
+								typeBike = new Scanner (System.in).nextLine();
+								System.out.println("Select the gender of the bike (H,M,T)");
+								bikeGender = scanner.next();
+								bike = new Bike(1,mark,numWheel,typeBike,bikeGender);
+								menuB.create(connection, bike.getMark(), bike.getNumWheel(), bike.getBikeType(), bike.getGender());
+								break;
+							case "2":
+								System.out.println("You choose delete a bike, select his id \n"
+										+ "Be careful, if you delete a bike that was purchased you delete this purchase too");
+								statsB.showAllBikes(connection);
+								try
+								{
+									bikeID = scanner.nextInt();
+								}catch(InputMismatchException e)
+								{
+									System.out.println("Error selecting id");
+								}
+								if(bikeID!=1 || bikeID>0)
+								{
+									menuB.delete(connection, bikeID);
+								}
+								break;
+							case "3":
+								System.out.println("You choose modify an attribute, select the id of the bike to modify");
+								statsB.showAllBikes(connection);
+								try
+								{
+									bikeID = new Scanner(System.in).nextInt();
+								}catch(InputMismatchException e)
+								{
+									System.out.println("Error selecting id");
+									bikeID = -1;
+								}
+								if(bikeID!=1 || bikeID>0)
+								{
+									bike = menuB.read(connection, bikeID);
+									if(bike!=null)
+									{
+										System.out.println("Ok "+bike+" selected, select the attribute to modify:\n"
+												+ "1.-Mark\n"
+												+ "2.-Number of wheel\n"
+												+ "3.-Bike type\n"
+												+ "4.-Gender");
+										option = scanner.next();
+										switch(option)
+										{
+										case "1":
+											System.out.println("Select the new mark");
+											mark = new Scanner(System.in).nextLine();
+											menuB.updateMark(connection, bikeID, mark);
+											break;
+										case "2":
+											System.out.println("Select the new number of wheel");
+											try
+											{
+												numWheel = new Scanner(System.in).nextInt();
+											}catch(InputMismatchException e)
+											{
+												System.out.println("Error selecting the number of wheel");
+												numWheel = -1;
+											}
+											if(numWheel>13 && numWheel<30)
+											{
+												menuB.updateNumWheel(connection, bikeID, numWheel);
+											}
+											else
+											{
+												System.out.println("The number of wheel "+numWheel+" doesnt exist");
+											}
+										case "3":
+											System.out.println("Select the new bike type");
+											typeBike = new Scanner (System.in).nextLine();
+											menuB.updateBikeType(connection, bikeID, typeBike);
+											break;
+										case "4":
+											System.out.println("Select the new gender (H,M,T)");
+											bikeGender = scanner.next();
+											if(bikeGender.equals("H") || bikeGender.equals("M") || bikeGender.equals("T"))
+											{
+												menuB.updateGender(connection, bikeID, bikeGender);
+											}
+											else
+											{
+												System.out.println("The gender "+bikeGender+" doesnt exist");
+											}
+										}
+									}
+									else
+									{
+										System.out.println("The bike with id "+bikeID+" doesnt exist");
+									}
+								}
+								break;
+							case "4":
+								System.out.println("Select the id of the bike to search");
+								try
+								{
+									bikeID = scanner.nextInt();
+								}catch(InputMismatchException e)
+								{
+									System.out.println("Error selecting email");
+									bikeID = -1;
+								}
+								if(bikeID>0 || bikeID!=-1)
+								{
+									bike = menuB.read(connection, bikeID);
+									System.out.println(bike);
+								}
+								break;
+							default:
+								System.out.println("Error choosing option");
+							}
 							
-							break;
+							
 						case "3":
 							endMenu=true;
 							break;
