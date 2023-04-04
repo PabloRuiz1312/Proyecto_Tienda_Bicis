@@ -182,11 +182,6 @@ public class Launcher {
 										default:
 											System.out.println("Error selecting option");
 										}
-									
-									}
-									else
-									{
-										System.out.println("Client with id "+clientID+" doesnt exist");
 									}
 								}
 								break;
@@ -203,7 +198,10 @@ public class Launcher {
 								if(clientID!=-1)
 								{
 									client = menuC.read(connection, clientID);
-									System.out.println(client);
+									if(client!=null)
+									{
+										System.out.println(client);
+									}		
 								}
 								break;
 							default:
@@ -314,15 +312,7 @@ public class Launcher {
 											{
 												menuB.updateGender(connection, bikeID, bikeGender);
 											}
-											else
-											{
-												System.out.println("The gender "+bikeGender+" doesnt exist");
-											}
 										}
-									}
-									else
-									{
-										System.out.println("The bike with id "+bikeID+" doesnt exist");
 									}
 								}
 								break;
