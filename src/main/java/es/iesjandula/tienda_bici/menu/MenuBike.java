@@ -1,12 +1,13 @@
 package es.iesjandula.tienda_bici.menu;
 import java.sql.*;
 import es.iesjandula.tienda_bici.clasesbase.Bike;
+import es.iesjandula.tienda_bici.interfaces.CheckIdBike;
 /**
  * 
  * @author Pablo Elias Ruiz Canovas
  * This class create, update, delete and search bikes
  */
-public class MenuBike {
+public class MenuBike implements CheckIdBike {
 	//Statement to realize (prepared to insert,update or delete syntax)
 	private PreparedStatement statement = null;
 	//Statement to search the identifier of the client
@@ -59,38 +60,45 @@ public class MenuBike {
 	 */
 	public void updateMark(Connection connection,int bikeID,String newMark)
 	{
-		try
+		if(check(connection, bikeID))
 		{
-			this.syntax = "SELECT * FROM Bicicleta WHERE ID = ?";
-			this.statement = connection.prepareStatement(this.syntax);
-			this.statement.setInt(1, bikeID);
-			this.resultSet = this.statement.executeQuery();
-			while(this.resultSet.next())
+			try
 			{
-				System.out.println("Old bike");
-				System.out.println(this.resultSet.getString("ID")+"\t"+this.resultSet.getString("Marca")
-				+"\t"+this.resultSet.getString("Num_Rueda")+"\t"+this.resultSet.getString("Tipo_Bici")
-				+"\t"+this.resultSet.getString("Genero"));
-			}
-			this.syntax = "UPDATE Bicicleta SET Marca = ? WHERE ID = ?";
-			this.statement = connection.prepareStatement(this.syntax);
-			this.statement.setString(1, newMark);
-			this.statement.setInt(2, bikeID);
-			this.statement.executeUpdate();
-			this.syntax = "SELECT * FROM Bicicleta WHERE ID = ?";
-			this.statement = connection.prepareStatement(this.syntax);
-			this.statement.setInt(1, bikeID);
-			this.resultSet = this.statement.executeQuery();
-			while(this.resultSet.next())
+				this.syntax = "SELECT * FROM Bicicleta WHERE ID = ?";
+				this.statement = connection.prepareStatement(this.syntax);
+				this.statement.setInt(1, bikeID);
+				this.resultSet = this.statement.executeQuery();
+				while(this.resultSet.next())
+				{
+					System.out.println("Old bike");
+					System.out.println(this.resultSet.getString("ID")+"\t"+this.resultSet.getString("Marca")
+					+"\t"+this.resultSet.getString("Num_Rueda")+"\t"+this.resultSet.getString("Tipo_Bici")
+					+"\t"+this.resultSet.getString("Genero"));
+				}
+				this.syntax = "UPDATE Bicicleta SET Marca = ? WHERE ID = ?";
+				this.statement = connection.prepareStatement(this.syntax);
+				this.statement.setString(1, newMark);
+				this.statement.setInt(2, bikeID);
+				this.statement.executeUpdate();
+				this.syntax = "SELECT * FROM Bicicleta WHERE ID = ?";
+				this.statement = connection.prepareStatement(this.syntax);
+				this.statement.setInt(1, bikeID);
+				this.resultSet = this.statement.executeQuery();
+				while(this.resultSet.next())
+				{
+					System.out.println("New bike");
+					System.out.println(this.resultSet.getString("ID")+"\t"+this.resultSet.getString("Marca")
+					+"\t"+this.resultSet.getString("Num_Rueda")+"\t"+this.resultSet.getString("Tipo_Bici")
+					+"\t"+this.resultSet.getString("Genero"));
+				}
+			}catch(SQLException e)
 			{
-				System.out.println("New bike");
-				System.out.println(this.resultSet.getString("ID")+"\t"+this.resultSet.getString("Marca")
-				+"\t"+this.resultSet.getString("Num_Rueda")+"\t"+this.resultSet.getString("Tipo_Bici")
-				+"\t"+this.resultSet.getString("Genero"));
+				System.out.println("Error updating mark");
 			}
-		}catch(SQLException e)
+		}
+		else
 		{
-			System.out.println("Error updating mark");
+			System.out.println("The id "+bikeID+" doesnt exist");
 		}
 	}
 	/**
@@ -101,38 +109,45 @@ public class MenuBike {
 	 */
 	public void updateNumWheel(Connection connection,int bikeID,int numWheel)
 	{
-		try
+		if(check(connection, bikeID))
 		{
-			this.syntax = "SELECT * FROM Bicicleta WHERE ID = ?";
-			this.statement = connection.prepareStatement(this.syntax);
-			this.statement.setInt(1, bikeID);
-			this.resultSet = this.statement.executeQuery();
-			while(this.resultSet.next())
+			try
 			{
-				System.out.println("Old bike");
-				System.out.println(this.resultSet.getString("ID")+"\t"+this.resultSet.getString("Marca")
-				+"\t"+this.resultSet.getString("Num_Rueda")+"\t"+this.resultSet.getString("Tipo_Bici")
-				+"\t"+this.resultSet.getString("Genero"));
-			}
-			this.syntax = "UPDATE Bicicleta SET Num_Rueda = ? WHERE ID = ?";
-			this.statement = connection.prepareStatement(this.syntax);
-			this.statement.setInt(1, numWheel);
-			this.statement.setInt(2, bikeID);
-			this.statement.executeUpdate();
-			this.syntax = "SELECT * FROM Bicicleta WHERE ID = ?";
-			this.statement = connection.prepareStatement(this.syntax);
-			this.statement.setInt(1, bikeID);
-			this.resultSet = this.statement.executeQuery();
-			while(this.resultSet.next())
+				this.syntax = "SELECT * FROM Bicicleta WHERE ID = ?";
+				this.statement = connection.prepareStatement(this.syntax);
+				this.statement.setInt(1, bikeID);
+				this.resultSet = this.statement.executeQuery();
+				while(this.resultSet.next())
+				{
+					System.out.println("Old bike");
+					System.out.println(this.resultSet.getString("ID")+"\t"+this.resultSet.getString("Marca")
+					+"\t"+this.resultSet.getString("Num_Rueda")+"\t"+this.resultSet.getString("Tipo_Bici")
+					+"\t"+this.resultSet.getString("Genero"));
+				}
+				this.syntax = "UPDATE Bicicleta SET Num_Rueda = ? WHERE ID = ?";
+				this.statement = connection.prepareStatement(this.syntax);
+				this.statement.setInt(1, numWheel);
+				this.statement.setInt(2, bikeID);
+				this.statement.executeUpdate();
+				this.syntax = "SELECT * FROM Bicicleta WHERE ID = ?";
+				this.statement = connection.prepareStatement(this.syntax);
+				this.statement.setInt(1, bikeID);
+				this.resultSet = this.statement.executeQuery();
+				while(this.resultSet.next())
+				{
+					System.out.println("New bike");
+					System.out.println(this.resultSet.getString("ID")+"\t"+this.resultSet.getString("Marca")
+					+"\t"+this.resultSet.getString("Num_Rueda")+"\t"+this.resultSet.getString("Tipo_Bici")
+					+"\t"+this.resultSet.getString("Genero"));
+				}
+			}catch(SQLException e)
 			{
-				System.out.println("New bike");
-				System.out.println(this.resultSet.getString("ID")+"\t"+this.resultSet.getString("Marca")
-				+"\t"+this.resultSet.getString("Num_Rueda")+"\t"+this.resultSet.getString("Tipo_Bici")
-				+"\t"+this.resultSet.getString("Genero"));
+				System.out.println("Error updating number of wheel");
 			}
-		}catch(SQLException e)
+		}
+		else
 		{
-			System.out.println("Error updating number of wheel");
+			System.out.println("The id "+bikeID+" doesnt exist");
 		}
 	}
 	/**
@@ -143,38 +158,45 @@ public class MenuBike {
 	 */
 	public void updateBikeType(Connection connection,int bikeID,String newTypeBike)
 	{
-		try
+		if(check(connection, bikeID))
 		{
-			this.syntax = "SELECT * FROM Bicicleta WHERE ID = ?";
-			this.statement = connection.prepareStatement(this.syntax);
-			this.statement.setInt(1, bikeID);
-			this.resultSet = this.statement.executeQuery();
-			while(this.resultSet.next())
+			try
 			{
-				System.out.println("Old bike");
-				System.out.println(this.resultSet.getString("ID")+"\t"+this.resultSet.getString("Marca")
-				+"\t"+this.resultSet.getString("Num_Rueda")+"\t"+this.resultSet.getString("Tipo_Bici")
-				+"\t"+this.resultSet.getString("Genero"));
-			}
-			this.syntax = "UPDATE Bicicleta SET Tipo_Bici = ? WHERE ID = ?";
-			this.statement = connection.prepareStatement(this.syntax);
-			this.statement.setString(1, newTypeBike);
-			this.statement.setInt(2, bikeID);
-			this.statement.executeUpdate();
-			this.syntax = "SELECT * FROM Bicicleta WHERE ID = ?";
-			this.statement = connection.prepareStatement(this.syntax);
-			this.statement.setInt(1, bikeID);
-			this.resultSet = this.statement.executeQuery();
-			while(this.resultSet.next())
+				this.syntax = "SELECT * FROM Bicicleta WHERE ID = ?";
+				this.statement = connection.prepareStatement(this.syntax);
+				this.statement.setInt(1, bikeID);
+				this.resultSet = this.statement.executeQuery();
+				while(this.resultSet.next())
+				{
+					System.out.println("Old bike");
+					System.out.println(this.resultSet.getString("ID")+"\t"+this.resultSet.getString("Marca")
+					+"\t"+this.resultSet.getString("Num_Rueda")+"\t"+this.resultSet.getString("Tipo_Bici")
+					+"\t"+this.resultSet.getString("Genero"));
+				}
+				this.syntax = "UPDATE Bicicleta SET Tipo_Bici = ? WHERE ID = ?";
+				this.statement = connection.prepareStatement(this.syntax);
+				this.statement.setString(1, newTypeBike);
+				this.statement.setInt(2, bikeID);
+				this.statement.executeUpdate();
+				this.syntax = "SELECT * FROM Bicicleta WHERE ID = ?";
+				this.statement = connection.prepareStatement(this.syntax);
+				this.statement.setInt(1, bikeID);
+				this.resultSet = this.statement.executeQuery();
+				while(this.resultSet.next())
+				{
+					System.out.println("New bike");
+					System.out.println(this.resultSet.getString("ID")+"\t"+this.resultSet.getString("Marca")
+					+"\t"+this.resultSet.getString("Num_Rueda")+"\t"+this.resultSet.getString("Tipo_Bici")
+					+"\t"+this.resultSet.getString("Genero"));
+				}
+			}catch(SQLException e)
 			{
-				System.out.println("New bike");
-				System.out.println(this.resultSet.getString("ID")+"\t"+this.resultSet.getString("Marca")
-				+"\t"+this.resultSet.getString("Num_Rueda")+"\t"+this.resultSet.getString("Tipo_Bici")
-				+"\t"+this.resultSet.getString("Genero"));
+				System.out.println("Error updating type of bike");
 			}
-		}catch(SQLException e)
+		}
+		else
 		{
-			System.out.println("Error updating type of bike");
+			System.out.println("The id "+bikeID+" doesnt exist");
 		}
 	}
 	/**
@@ -185,38 +207,45 @@ public class MenuBike {
 	 */
 	public void updateGender(Connection connection,int bikeID,String newGender)
 	{
-		try
+		if(check(connection, bikeID))
 		{
-			this.syntax = "SELECT * FROM Bicicleta WHERE ID = ?";
-			this.statement = connection.prepareStatement(this.syntax);
-			this.statement.setInt(1, bikeID);
-			this.resultSet = this.statement.executeQuery();
-			while(this.resultSet.next())
+			try
 			{
-				System.out.println("Old bike");
-				System.out.println(this.resultSet.getString("ID")+"\t"+this.resultSet.getString("Marca")
-				+"\t"+this.resultSet.getString("Num_Rueda")+"\t"+this.resultSet.getString("Tipo_Bici")
-				+"\t"+this.resultSet.getString("Genero"));
-			}
-			this.syntax = "UPDATE Bicicleta SET Genero = ? WHERE ID = ?";
-			this.statement = connection.prepareStatement(this.syntax);
-			this.statement.setString(1, newGender);
-			this.statement.setInt(2, bikeID);
-			this.statement.executeUpdate();
-			this.syntax = "SELECT * FROM Bicicleta WHERE ID = ?";
-			this.statement = connection.prepareStatement(this.syntax);
-			this.statement.setInt(1, bikeID);
-			this.resultSet = this.statement.executeQuery();
-			while(this.resultSet.next())
+				this.syntax = "SELECT * FROM Bicicleta WHERE ID = ?";
+				this.statement = connection.prepareStatement(this.syntax);
+				this.statement.setInt(1, bikeID);
+				this.resultSet = this.statement.executeQuery();
+				while(this.resultSet.next())
+				{
+					System.out.println("Old bike");
+					System.out.println(this.resultSet.getString("ID")+"\t"+this.resultSet.getString("Marca")
+					+"\t"+this.resultSet.getString("Num_Rueda")+"\t"+this.resultSet.getString("Tipo_Bici")
+					+"\t"+this.resultSet.getString("Genero"));
+				}
+				this.syntax = "UPDATE Bicicleta SET Genero = ? WHERE ID = ?";
+				this.statement = connection.prepareStatement(this.syntax);
+				this.statement.setString(1, newGender);
+				this.statement.setInt(2, bikeID);
+				this.statement.executeUpdate();
+				this.syntax = "SELECT * FROM Bicicleta WHERE ID = ?";
+				this.statement = connection.prepareStatement(this.syntax);
+				this.statement.setInt(1, bikeID);
+				this.resultSet = this.statement.executeQuery();
+				while(this.resultSet.next())
+				{
+					System.out.println("New bike");
+					System.out.println(this.resultSet.getString("ID")+"\t"+this.resultSet.getString("Marca")
+					+"\t"+this.resultSet.getString("Num_Rueda")+"\t"+this.resultSet.getString("Tipo_Bici")
+					+"\t"+this.resultSet.getString("Genero"));
+				}
+			}catch(SQLException e)
 			{
-				System.out.println("New bike");
-				System.out.println(this.resultSet.getString("ID")+"\t"+this.resultSet.getString("Marca")
-				+"\t"+this.resultSet.getString("Num_Rueda")+"\t"+this.resultSet.getString("Tipo_Bici")
-				+"\t"+this.resultSet.getString("Genero"));
+				System.out.println("Error updating gender");
 			}
-		}catch(SQLException e)
+		}
+		else
 		{
-			System.out.println("Error updating gender");
+			System.out.println("The id "+bikeID+" doesnt exist");
 		}
 	}
 	/**
@@ -226,27 +255,34 @@ public class MenuBike {
 	 */
 	public void delete(Connection connection, int bikeID)
 	{
-		try
+		if(check(connection, bikeID))
 		{
-			this.syntax = "SELECT * FROM Bicicleta WHERE ID = ?";
-			this.statement = connection.prepareStatement(this.syntax);
-			this.statement.setInt(1, bikeID);
-			this.resultSet = this.statement.executeQuery();
-			while(this.resultSet.next())
+			try
 			{
-				System.out.println("Bike to remove");
-				System.out.println(this.resultSet.getString("ID")+"\t"+this.resultSet.getString("Marca")
-				+"\t"+this.resultSet.getString("Num_Rueda")+"\t"+this.resultSet.getString("Tipo_Bici")
-				+"\t"+this.resultSet.getString("Genero"));
+				this.syntax = "SELECT * FROM Bicicleta WHERE ID = ?";
+				this.statement = connection.prepareStatement(this.syntax);
+				this.statement.setInt(1, bikeID);
+				this.resultSet = this.statement.executeQuery();
+				while(this.resultSet.next())
+				{
+					System.out.println("Bike to remove");
+					System.out.println(this.resultSet.getString("ID")+"\t"+this.resultSet.getString("Marca")
+					+"\t"+this.resultSet.getString("Num_Rueda")+"\t"+this.resultSet.getString("Tipo_Bici")
+					+"\t"+this.resultSet.getString("Genero"));
+				}
+				this.syntax = "DELETE FROM Bicicleta WHERE ID = ?";
+				this.statement = connection.prepareStatement(this.syntax);
+				this.statement.setInt(1,bikeID);
+				this.statement.executeUpdate();
+				System.out.println("Bike remove succesfully");
+			}catch(SQLException e)
+			{
+				System.out.println("Error deleting the bike");
 			}
-			this.syntax = "DELETE FROM Bicicleta WHERE ID = ?";
-			this.statement = connection.prepareStatement(this.syntax);
-			this.statement.setInt(1,bikeID);
-			this.statement.executeUpdate();
-			System.out.println("Bike remove succesfully");
-		}catch(SQLException e)
+		}
+		else
 		{
-			System.out.println("Error deleting the bike");
+			System.out.println("The id "+bikeID+" doesnt exist");
 		}
 	}
 	/**
@@ -260,23 +296,30 @@ public class MenuBike {
 		Bike bike = null;
 		String mark = null,bikeType = null,gender = null;
 		int numWheel = 0;
-		try
-		{
-			this.syntax = "SELECT * FROM Bicicleta WHERE ID = ?";
-			this.statement = connection.prepareStatement(this.syntax);
-			this.statement.setInt(1, bikeID);
-			this.resultSet = this.statement.executeQuery();
-			while(this.resultSet.next())
+		if(check(connection, bikeID))
+		{	
+			try
 			{
-				mark = this.resultSet.getString("Marca");
-				numWheel = this.resultSet.getInt("Num_Rueda");
-				bikeType = this.resultSet.getString("Tipo_Bici");
-				gender = this.resultSet.getString("Genero");
+				this.syntax = "SELECT * FROM Bicicleta WHERE ID = ?";
+				this.statement = connection.prepareStatement(this.syntax);
+				this.statement.setInt(1, bikeID);
+				this.resultSet = this.statement.executeQuery();
+				while(this.resultSet.next())
+				{
+					mark = this.resultSet.getString("Marca");
+					numWheel = this.resultSet.getInt("Num_Rueda");
+					bikeType = this.resultSet.getString("Tipo_Bici");
+					gender = this.resultSet.getString("Genero");
+				}
+				bike = new Bike(bikeID,mark,numWheel,bikeType,gender);
+			}catch(SQLException e)
+			{
+				System.out.println("Error searching a bike");
 			}
-			bike = new Bike(bikeID,mark,numWheel,bikeType,gender);
-		}catch(SQLException e)
+		}
+		else
 		{
-			System.out.println("Error searching a bike");
+			System.out.println("The id "+bikeID+" doessnt exist");
 		}
 		return bike;
 	}
