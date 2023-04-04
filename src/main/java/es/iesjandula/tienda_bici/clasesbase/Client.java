@@ -112,9 +112,13 @@ public class Client {
 			System.out.println("Negative age, set default");
 			this.age = 18;
 		}
+		if(!this.gender.equalsIgnoreCase("Hombre") && !this.gender.equalsIgnoreCase("Mujer") && !this.gender.equalsIgnoreCase("Otro"))
+		{
+			this.gender = "Otro";
+		}
 		if(this.gender.isEmpty())
 		{
-			this.gender = "Other";
+			this.gender = "Otro";
 		}
 	}
 	@Override
