@@ -1,12 +1,13 @@
 package es.iesjandula.tienda_bici.menu;
 import java.sql.*;
 import es.iesjandula.tienda_bici.clasesbase.Client;
+import es.iesjandula.tienda_bici.interfaces.CheckIdClient;
 /**
  * 
  * @author Pablo Elias Ruiz Canovas
  * This class create, update, delete or search a client
  */
-public class MenuClient {
+public class MenuClient implements CheckIdClient {
 	//Statement to realize (prepared to insert,update or delete syntax)
 	private PreparedStatement statement = null;
 	//Statement to search the identifier of the client
@@ -56,36 +57,43 @@ public class MenuClient {
 	 */
 	public void updateName(Connection connection,int clientID ,String newName)
 	{
-		try
+		if(check(connection, clientID))
 		{
-			this.syntax = "SELECT * FROM Cliente WHERE ID = ?";
-			this.statement = connection.prepareStatement(this.syntax);
-			this.statement.setInt(1,clientID);
-			this.resultSet = this.statement.executeQuery();
-			while(this.resultSet.next())
+			try
 			{
-				System.out.println("Older client");
-				System.out.println(this.resultSet.getString("ID")+"\t"+this.resultSet.getString("Nombre")
-				+"\t"+this.resultSet.getString("Edad")+"\t"+this.resultSet.getString("Genero"));
-			}
-			this.syntax = "UPDATE Cliente SET Nombre = ? WHERE ID = ?";
-			this.statement = connection.prepareStatement(this.syntax);
-			this.statement.setString(1,newName);
-			this.statement.setInt(2,clientID);
-			this.statement.executeUpdate();
-			this.syntax = "SELECT * FROM Cliente WHERE ID = ?";
-			this.statement = connection.prepareStatement(this.syntax);
-			this.statement.setInt(1,clientID);
-			this.resultSet = this.statement.executeQuery();
-			while(this.resultSet.next())
+				this.syntax = "SELECT * FROM Cliente WHERE ID = ?";
+				this.statement = connection.prepareStatement(this.syntax);
+				this.statement.setInt(1,clientID);
+				this.resultSet = this.statement.executeQuery();
+				while(this.resultSet.next())
+				{
+					System.out.println("Older client");
+					System.out.println(this.resultSet.getString("ID")+"\t"+this.resultSet.getString("Nombre")
+					+"\t"+this.resultSet.getString("Edad")+"\t"+this.resultSet.getString("Genero"));
+				}
+				this.syntax = "UPDATE Cliente SET Nombre = ? WHERE ID = ?";
+				this.statement = connection.prepareStatement(this.syntax);
+				this.statement.setString(1,newName);
+				this.statement.setInt(2,clientID);
+				this.statement.executeUpdate();
+				this.syntax = "SELECT * FROM Cliente WHERE ID = ?";
+				this.statement = connection.prepareStatement(this.syntax);
+				this.statement.setInt(1,clientID);
+				this.resultSet = this.statement.executeQuery();
+				while(this.resultSet.next())
+				{
+					System.out.println("New client");
+					System.out.println(this.resultSet.getString("ID")+"\t"+this.resultSet.getString("Nombre")
+					+"\t"+this.resultSet.getString("Edad")+"\t"+this.resultSet.getString("Genero"));
+				}
+			}catch(SQLException e)
 			{
-				System.out.println("New client");
-				System.out.println(this.resultSet.getString("ID")+"\t"+this.resultSet.getString("Nombre")
-				+"\t"+this.resultSet.getString("Edad")+"\t"+this.resultSet.getString("Genero"));
+				System.out.println("Error updating the client");
 			}
-		}catch(SQLException e)
+		}
+		else
 		{
-			System.out.println("Error updating the client");
+			System.out.println("The id "+clientID+" doesnt exist");
 		}
 	}
 	/**
@@ -96,36 +104,43 @@ public class MenuClient {
 	 */
 	public void updateAge(Connection connection,int clientID,int newAge)
 	{
-		try
+		if(check(connection, clientID))
 		{
-			this.syntax = "SELECT * FROM Cliente WHERE ID = ?";
-			this.statement = connection.prepareStatement(this.syntax);
-			this.statement.setInt(1,clientID);
-			this.resultSet = this.statement.executeQuery();
-			while(this.resultSet.next())
+			try
 			{
-				System.out.println("Older client");
-				System.out.println(this.resultSet.getString("ID")+"\t"+this.resultSet.getString("Nombre")
-				+"\t"+this.resultSet.getString("Edad")+"\t"+this.resultSet.getString("Genero"));
-			}
-			this.syntax = "UPDATE Cliente SET Edad = ? WHERE ID = ?";
-			this.statement = connection.prepareStatement(this.syntax);
-			this.statement.setInt(1,newAge);
-			this.statement.setInt(2,clientID);
-			this.statement.executeUpdate();
-			this.syntax = "SELECT * FROM Cliente WHERE ID = ?";
-			this.statement = connection.prepareStatement(this.syntax);
-			this.statement.setInt(1,clientID);
-			this.resultSet = this.statement.executeQuery();
-			while(this.resultSet.next())
+				this.syntax = "SELECT * FROM Cliente WHERE ID = ?";
+				this.statement = connection.prepareStatement(this.syntax);
+				this.statement.setInt(1,clientID);
+				this.resultSet = this.statement.executeQuery();
+				while(this.resultSet.next())
+				{
+					System.out.println("Older client");
+					System.out.println(this.resultSet.getString("ID")+"\t"+this.resultSet.getString("Nombre")
+					+"\t"+this.resultSet.getString("Edad")+"\t"+this.resultSet.getString("Genero"));
+				}
+				this.syntax = "UPDATE Cliente SET Edad = ? WHERE ID = ?";
+				this.statement = connection.prepareStatement(this.syntax);
+				this.statement.setInt(1,newAge);
+				this.statement.setInt(2,clientID);
+				this.statement.executeUpdate();
+				this.syntax = "SELECT * FROM Cliente WHERE ID = ?";
+				this.statement = connection.prepareStatement(this.syntax);
+				this.statement.setInt(1,clientID);
+				this.resultSet = this.statement.executeQuery();
+				while(this.resultSet.next())
+				{
+					System.out.println("New client");
+					System.out.println(this.resultSet.getString("ID")+"\t"+this.resultSet.getString("Nombre")
+					+"\t"+this.resultSet.getString("Edad")+"\t"+this.resultSet.getString("Genero"));
+				}
+			}catch(SQLException e)
 			{
-				System.out.println("New client");
-				System.out.println(this.resultSet.getString("ID")+"\t"+this.resultSet.getString("Nombre")
-				+"\t"+this.resultSet.getString("Edad")+"\t"+this.resultSet.getString("Genero"));
+				System.out.println("Error updating the client");
 			}
-		}catch(SQLException e)
+		}
+		else
 		{
-			System.out.println("Error updating the client");
+			System.out.println("The id "+clientID+" doesnt exist");
 		}
 	}
 	/**
@@ -136,36 +151,43 @@ public class MenuClient {
 	 */
 	public void updateGender(Connection connection,int clientID,String newGender)
 	{
-		try
+		if(check(connection, clientID))
 		{
-			this.syntax = "SELECT * FROM Cliente WHERE ID = ?";
-			this.statement = connection.prepareStatement(this.syntax);
-			this.statement.setInt(1,clientID);
-			this.resultSet = this.statement.executeQuery();
-			while(this.resultSet.next())
+			try
 			{
-				System.out.println("Older client");
-				System.out.println(this.resultSet.getString("ID")+"\t"+this.resultSet.getString("Nombre")
-				+"\t"+this.resultSet.getString("Edad")+"\t"+this.resultSet.getString("Genero"));
-			}
-			this.syntax = "UPDATE Cliente SET Genero = ? WHERE ID = ?";
-			this.statement = connection.prepareStatement(this.syntax);
-			this.statement.setString(1,newGender);
-			this.statement.setInt(2,clientID);
-			this.statement.executeUpdate();
-			this.syntax = "SELECT * FROM Cliente WHERE ID = ?";
-			this.statement = connection.prepareStatement(this.syntax);
-			this.statement.setInt(1,clientID);
-			this.resultSet = this.statement.executeQuery();
-			while(this.resultSet.next())
+				this.syntax = "SELECT * FROM Cliente WHERE ID = ?";
+				this.statement = connection.prepareStatement(this.syntax);
+				this.statement.setInt(1,clientID);
+				this.resultSet = this.statement.executeQuery();
+				while(this.resultSet.next())
+				{
+					System.out.println("Older client");
+					System.out.println(this.resultSet.getString("ID")+"\t"+this.resultSet.getString("Nombre")
+					+"\t"+this.resultSet.getString("Edad")+"\t"+this.resultSet.getString("Genero"));
+				}
+				this.syntax = "UPDATE Cliente SET Genero = ? WHERE ID = ?";
+				this.statement = connection.prepareStatement(this.syntax);
+				this.statement.setString(1,newGender);
+				this.statement.setInt(2,clientID);
+				this.statement.executeUpdate();
+				this.syntax = "SELECT * FROM Cliente WHERE ID = ?";
+				this.statement = connection.prepareStatement(this.syntax);
+				this.statement.setInt(1,clientID);
+				this.resultSet = this.statement.executeQuery();
+				while(this.resultSet.next())
+				{
+					System.out.println("New client");
+					System.out.println(this.resultSet.getString("ID")+"\t"+this.resultSet.getString("Nombre")
+					+"\t"+this.resultSet.getString("Edad")+"\t"+this.resultSet.getString("Genero"));
+				}
+			}catch(SQLException e)
 			{
-				System.out.println("New client");
-				System.out.println(this.resultSet.getString("ID")+"\t"+this.resultSet.getString("Nombre")
-				+"\t"+this.resultSet.getString("Edad")+"\t"+this.resultSet.getString("Genero"));
+				System.out.println("Error updating the client");
 			}
-		}catch(SQLException e)
+		}
+		else
 		{
-			System.out.println("Error updating the client");
+			System.out.println("The id "+clientID+" doesnt exist");
 		}
 	}
 	/**
@@ -175,26 +197,33 @@ public class MenuClient {
 	 */
 	public void delete(Connection connection,int clientID) 
 	{
-		try
+		if(check(connection, clientID))
 		{
-			this.syntax = "SELECT * FROM Cliente WHERE ID = ?";
-			this.statement = connection.prepareStatement(this.syntax);
-			this.statement.setInt(1,clientID);
-			this.resultSet = this.statement.executeQuery();
-			while(this.resultSet.next())
+			try
 			{
-				System.out.println("Client to remove");
-				System.out.println(this.resultSet.getString("ID")+"\t"+this.resultSet.getString("Nombre")
-				+"\t"+this.resultSet.getString("Edad")+"\t"+this.resultSet.getString("Genero"));
+				this.syntax = "SELECT * FROM Cliente WHERE ID = ?";
+				this.statement = connection.prepareStatement(this.syntax);
+				this.statement.setInt(1,clientID);
+				this.resultSet = this.statement.executeQuery();
+				while(this.resultSet.next())
+				{
+					System.out.println("Client to remove");
+					System.out.println(this.resultSet.getString("ID")+"\t"+this.resultSet.getString("Nombre")
+					+"\t"+this.resultSet.getString("Edad")+"\t"+this.resultSet.getString("Genero"));
+				}
+				this.syntax = "DELETE FROM Cliente WHERE ID = ?";
+				this.statement = connection.prepareStatement(this.syntax);
+				this.statement.setInt(1, clientID);
+				this.statement.executeUpdate();
+				System.out.println("Client remove succesfully");
+			}catch(SQLException e)
+			{
+				System.out.println("Error deleting the client");
 			}
-			this.syntax = "DELETE FROM Cliente WHERE ID = ?";
-			this.statement = connection.prepareStatement(this.syntax);
-			this.statement.setInt(1, clientID);
-			this.statement.executeUpdate();
-			System.out.println("Client remove succesfully");
-		}catch(SQLException e)
+		}
+		else
 		{
-			System.out.println("Error deleting the client");
+			System.out.println("The id "+clientID+" doesnt exist");
 		}
 	}
 	/**
@@ -208,22 +237,29 @@ public class MenuClient {
 		Client client = null;
 		String name = null,gender = null;
 		int age = 0;
-		try
+		if(check(connection, clientID))
 		{
-			this.syntax = "SELECT * FROM Cliente WHERE ID = ?";
-			this.statement = connection.prepareStatement(this.syntax);
-			this.statement.setInt(1, clientID);
-			this.resultSet = this.statement.executeQuery();
-			while(this.resultSet.next())
+			try
 			{
-				age = this.resultSet.getInt("Edad");
-				name = this.resultSet.getString("Nombre");
-				gender = this.resultSet.getString("Genero");
+				this.syntax = "SELECT * FROM Cliente WHERE ID = ?";
+				this.statement = connection.prepareStatement(this.syntax);
+				this.statement.setInt(1, clientID);
+				this.resultSet = this.statement.executeQuery();
+				while(this.resultSet.next())
+				{
+					age = this.resultSet.getInt("Edad");
+					name = this.resultSet.getString("Nombre");
+					gender = this.resultSet.getString("Genero");
+				}
+				client = new Client (clientID,name,age,gender);
+			}catch(SQLException e)
+			{
+				System.out.println("Error searching the client");
 			}
-			client = new Client (clientID,name,age,gender);
-		}catch(SQLException e)
+		}
+		else
 		{
-			System.out.println("Error searching the client");
+			System.out.println("The id "+clientID+" doesnt exist");
 		}
 		return client;
 	}
