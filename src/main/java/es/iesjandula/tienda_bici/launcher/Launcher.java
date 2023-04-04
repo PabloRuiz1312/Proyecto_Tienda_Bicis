@@ -408,6 +408,112 @@ public class Launcher {
 					}
 					break;
 				case "3":
+					System.out.println("You choose stats of the system, choose one option:\n"
+							+ "1.-Stats of clients\n"
+							+ "2.-Stats of bikes\n"
+							+ "3.-General stats\n"
+							+ "4.-Back");
+					option = scanner.next();
+					endMenu = false;
+					while(!endMenu)
+					{
+						switch(option)
+						{
+						case "1":
+							System.out.println("You choose stats of clients, choose one option: \n"
+									+ "1.-Show all clients\n"
+									+ "2.-Show menor age clients\n"
+									+ "3.-Show mayor age clients\n"
+									+ "4.-Show men clients\n"
+									+ "5.-Show women clients\n"
+									+ "6.-Show other clients");
+							option = scanner.next();
+							switch(option)
+							{
+							case "1":
+								statsC.showClients(connection);
+								break;
+							case "2":
+								statsC.showMenorClients(connection);
+								break;
+							case "3":
+								statsC.showMayorClients(connection);
+								break;
+							case "4":
+								statsC.showMenClients(connection);
+								break;
+							case "5":
+								statsC.showWomenClients(connection);
+								break;
+							case "6":
+								statsC.showOtherClients(connection);
+								break;
+							default:
+								System.out.println("Error choosing option");
+							}
+							break;
+						case "2":
+							System.out.println("You choose stats of bikes, choose one option: \n"
+									+ "1.-Show all bikes\n"
+									+ "2.-Show gender H bikes\n"
+									+ "3.-Show M bikes\n"
+									+ "4.-Show T bikes");
+							option = scanner.next();
+							switch (option)
+							{
+							case "1":
+								statsB.showAllBikes(connection);
+								break;
+							case "2":
+								statsB.showMenBikes(connection);
+								break;
+							case "3":
+								statsB.showWomenBikes(connection);
+								break;
+							case "4":
+								statsB.showOtherBikes(connection);
+								break;
+							default:
+								System.out.println("Error choosing option");
+							}
+							break;
+						case "3":
+							System.out.println("You choose general stats, choose one option: \n"
+									+ "1.-Show all purchases\n"
+									+ "2.-Show the best client\n"
+									+ "3.-Show the clients that dont buy bikes");
+							option = scanner.next();
+							switch(option)
+							{
+							case "1":
+								statsP.showAllPurchase(connection);
+								break;
+							case "2":
+								statsP.showBestClient(connection);
+								break;
+							case "3":
+								statsP.showWorstClient(connection);
+								break;
+							default:
+								System.out.println("Error choosing option");
+							}
+							break;
+						case "4":
+							endMenu = true;
+							break;
+						default:
+							System.out.println("Error choosing option");		
+						}
+						if(!endMenu)
+						{
+							System.out.println("Choose one option:\n"
+									+ "1.-Stats of clients\n"
+									+ "2.-Stats of bikes\n"
+									+ "3.-General stats\n"
+									+ "4.-Back");
+							option = scanner.next();
+						}
+					}
 					
 					break;
 				case "4":
